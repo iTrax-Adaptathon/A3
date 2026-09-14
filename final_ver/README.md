@@ -28,18 +28,33 @@ python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
 
-### 2. Run the Server
-```powershell
-.venv\Scripts\uvicorn main:app --host 127.0.0.1 --port 8000 --reload
-```
+The repository’s virtual environment may have been copied from another folder. If commands from .venv fail, recreate it from this project folder. The deactivate command is optional: use it only when another virtual environment is active.
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in any modern browser.
+powershell
+py -3.10 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+# Optional: deactivate
+Remove-Item -LiteralPath .\.venv -Recurse -Force
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 
-### 3. Run Automated Tests
-```powershell
-.venv\Scripts\pytest test_engine.py -v
-```
 
+If PowerShell blocks the activation script, allow it only for the current terminal session, then rerun the activation command:
+
+powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+
+
+Run the checks with:
+powershell
+.\.venv\Scripts\python.exe -m pytest test_engine.py -v
+python -m pytest test_engine.py -v
 ---
 
 ## 📡 API Contract
